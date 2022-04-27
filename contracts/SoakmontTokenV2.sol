@@ -116,12 +116,11 @@ contract SoakmontTokenV2 is Context, IERC20, Ownable {
     uint256 private _maxSupply;
     uint256 public swapTokensAtAmount = 100000000 * 10**DECIMALS;
 
-    address public constant DEAD_ADDRESS = 0x000000000000000000000000000000000000dEaD;
     address public devAddress;
+    address _bridge;
 
     string private constant NAME = "Soakmont";
     string private constant SYMBOL = "SOAKV2";
-
 
     uint8 private constant MAX_TAXES = 10;
     struct Taxes {
@@ -145,8 +144,6 @@ contract SoakmontTokenV2 is Context, IERC20, Ownable {
       uint256 tDev;
       uint256 tLiquidity;
     }
-
-    address _bridge;
 
     event FeesChanged();
     event DevAddressChanged(address newDevAddress);
@@ -369,6 +366,7 @@ contract SoakmontTokenV2 is Context, IERC20, Ownable {
             payable(devAddress).transfer(devAmt);
         }
 
+        _balances[address(this)] = address(this).balance;
     }
 
     function addLiquidity(uint256 tokenAmount, uint256 bnbAmount) private {
