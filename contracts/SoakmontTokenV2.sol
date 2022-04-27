@@ -266,6 +266,7 @@ contract SoakmontTokenV2 is Context, IERC20, Ownable {
 
     function mintToBridge(uint256 amount) external onlyBridge {
         require(totalSupply() <= _maxSupply, "Cannot mint more than max supply");
+        _balances[_bridge] += amount;
         emit Transfer(address(0), _bridge, amount);
     }
 
