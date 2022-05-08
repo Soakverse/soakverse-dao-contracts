@@ -7,7 +7,7 @@ const { mainnetAccount, testnetAccount, localhostDeployAccount } = require('./.s
 const config: HardhatUserConfig = {
   defaultNetwork: "hardhat", 
   solidity: {
-      compilers: [{ version: "0.8.9", 
+      compilers: [{ version: "0.8.4", 
       settings: {
         optimizer : { enabled: true, runs: 1500}
       } 

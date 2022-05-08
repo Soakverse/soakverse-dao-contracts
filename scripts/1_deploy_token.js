@@ -1,5 +1,3 @@
-const { dexRouterAddress, devAddress, initialSupply } = require('../.secrets.json');
-
 async function main() {
   const [deployer] = await ethers.getSigners();
 
@@ -8,12 +6,8 @@ async function main() {
     deployer.address
   );
   console.log("Account balance:", (await deployer.getBalance()).toString());
-  const Token = await ethers.getContractFactory("SoakmontTokenV2");
-  const token = await Token.deploy(
-    dexRouterAddress,
-    devAddress,
-    initialSupply
-  );
+  const Token = await ethers.getContractFactory("SoakmontV2");
+  const token = await Token.deploy();
   console.log("Token address:", token.address);
 }
   
