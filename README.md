@@ -1,11 +1,16 @@
-SOAKMONTV2 (SOAKV2) Smart Contract
+# Soakverse DAO Smart Contract Collection
 
-# Local deployment with Hardhat
+## Documentation
 
-## Prerequiste 
+* [Soakverse DAO](/docs/SoakverseDAO.md)
+
+
+## Local deployment with Hardhat
+
+### Prerequiste 
 * Install Hardhat
 
-## Deployment
+### Deployment
 ```
 npm install
 npx hardhat node

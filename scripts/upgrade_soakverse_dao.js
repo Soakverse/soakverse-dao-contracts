@@ -5,12 +5,10 @@ async function main() {
 
   console.log("Deploying contracts with the account");
 
-  const instance = await upgrades.deployProxy(ContractFactory, [
-    "0xc9e95F627B0a0f1df636a875A6Df3cF7b0071Ca5",
-    "0x2019f1aa40528e632b4add3b8bcbc435dbf86404",
-  ]);
-  await instance.waitForDeployment();
-  console.log("Proxy deployed to:", await instance.getAddress());
+  const proxyAddress = "0xEB40A91132741c6B96cab019b3Cb11b21608AEcF";
+
+  const instance = await upgrades.upgradeProxy(proxyAddress, ContractFactory);
+  console.log("Proxy upgraded to:", await instance.getAddress());
 }
 
 main().catch((error) => {
