@@ -18,5 +18,8 @@
     "hardhat": "^2.17.1",
     "ts-node": "^10.2.1",
     "typescript": "^4.4.3"
+  },
+  "dependencies": {
+    "@chainlink/contracts-ccip": "^0.7.6"
   }
 }
