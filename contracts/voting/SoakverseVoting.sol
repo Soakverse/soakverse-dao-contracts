@@ -67,8 +67,8 @@ contract SoakverseVoting is
 
     uint256 public currentConsensusId;              // id of the currently valid consensus
 
-    event VoteAttendance(uint256 voteId);
-    event NewVote(uint256 voteId);
+    event VoteAttendance(uint256 indexed voteId);
+    event NewVote(uint256 indexed voteId);
 
     error VoteNFTCannotBeTransferred();
     error VotingWeightTooLow(uint32 actual, uint32 required);
@@ -97,7 +97,6 @@ contract SoakverseVoting is
 
         __UUPSUpgradeable_init();
         __AccessControlEnumerable_init();
-        __Pausable_init();
 
         ledger = ISoakverseLedger(_ledger);
         activityLog = IActivityLog(_activityLog);
@@ -186,8 +185,8 @@ contract SoakverseVoting is
                     }
                     else {
                         detail.weightFalse = detail.weightFalse + userVoteWeight;
-
                     }
+                    detail.participants = detail.participants + 1;
 
                     // update state variables
                     voteIdToVoteDetail[voteId] = detail;
