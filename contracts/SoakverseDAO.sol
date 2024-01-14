@@ -196,7 +196,7 @@ contract SoakverseDAO is
     if (!_exists(tokenId)) {
       revert NonExistentToken();
     }
-    return bytes(baseURI).length > 0 ? string(abi.encodePacked(baseURI, tokenId.toString())) : "";
+    return bytes(baseURI).length > 0 ? string(abi.encodePacked(baseURI, tokenId.toString(), ".json")) : "";
   }
 
   function _baseURI() internal view override returns (string memory) {
