@@ -183,7 +183,7 @@ contract SoakverseDAO is
 
     soakverseOg.transferFrom(
       msg.sender,
-      address(0),
+      "put graveyard address here",
       ogId
     );
     _safeMint(msg.sender, ogId);
