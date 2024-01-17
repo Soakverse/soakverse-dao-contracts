@@ -58,6 +58,10 @@ contract SoakverseDAO is
   // nft level mapping by index. Index 0 is related to NFT with id 1
   uint8[365] private tokenLevels;
 
+  // uri to metadata that describes the whole collection
+  string public contractURI;
+
+
   error NonExistentToken();
   error NotAuthorizedToClaim();
   error UnauthorizedOwnerOfOg();
@@ -216,6 +220,9 @@ contract SoakverseDAO is
     baseURI = uri;
   }
 
+  function setContractURI(string memory newContractUri) external onlyRole(DEFAULT_ADMIN_ROLE) {
+    contractURI = newContractUri;
+  }
 
   // ---- ADMINISTRATION ----
   function toggleClaimStatus() public onlyRole(DEFAULT_ADMIN_ROLE) {
