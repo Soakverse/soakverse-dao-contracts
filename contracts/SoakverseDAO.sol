@@ -173,9 +173,17 @@ contract SoakverseDAO is
    */
   function claimAll() external nonReentrant onlyActiveClaim {
     uint256 claimerBalance = soakverseOg.balanceOf(msg.sender);
+
+    // since the owner balance is shrinking during this process, we need
+    // to have a temporary array of all ids to avoid any out-of-bounds
+    // errors when we directly loop over the balance.
+    uint256[] memory tokenIds = new uint256[](claimerBalance);
     for(uint256 i = 0; i < claimerBalance; i++) {
-      uint256 ogId = soakverseOg.tokenOfOwnerByIndex(msg.sender, i);
-      _claim(ogId);
+      tokenIds[i] = soakverseOg.tokenOfOwnerByIndex(msg.sender, i);
+    }
+
+    for(uint256 j = 0; j < tokenIds.length; j++) {
+      _claim(tokenIds[j]);
     }
   }
 
