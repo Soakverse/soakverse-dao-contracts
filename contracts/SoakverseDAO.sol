@@ -180,10 +180,11 @@ contract SoakverseDAO is
   }
 
   function _claim(uint256 ogId) private {
+    address deadAddress = 0x000000000000000000000000000000000000dEaD;
 
     soakverseOg.transferFrom(
       msg.sender,
-      "put graveyard address here",
+      deadAddress,
       ogId
     );
     _safeMint(msg.sender, ogId);
@@ -260,9 +261,9 @@ contract SoakverseDAO is
     CCIPSenderUpgradeable.setGasLimit(_gasLimit);
   } 
 
-    function setCcipFeeToken(address _feeToken) external onlyRole(DEFAULT_ADMIN_ROLE) {
+  function setCcipFeeToken(address _feeToken) external onlyRole(DEFAULT_ADMIN_ROLE) {
     CCIPSenderUpgradeable.setFeeToken(_feeToken);
-  } 
+  }
 
   // ---- STAKING ----
   function setCanStake(bool _canStake) external onlyRole(DEFAULT_ADMIN_ROLE) {
