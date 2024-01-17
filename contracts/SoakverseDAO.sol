@@ -90,7 +90,7 @@ contract SoakverseDAO is
   external
   initializer
   {
-    __ERC721_init("Soakverse DAO", "SOAKDAO");
+    __ERC721_init("Soakverse DAO Pass", "SOAKDAO");
     __ERC721Royalty_init(); 
 
     __UUPSUpgradeable_init();

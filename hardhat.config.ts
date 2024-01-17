@@ -10,6 +10,7 @@ const {
   localhostDeployAccount,
   infuraProjectId,
   etherscanApiKey,
+  bscScanDevApiKey,
 } = require("./.secrets.json");
 
 const config: HardhatUserConfig = {
@@ -46,9 +47,10 @@ const config: HardhatUserConfig = {
     },
   },
   etherscan: {
-    // Your API key for Etherscan
-    // Obtain one at https://etherscan.io/
-    apiKey: etherscanApiKey,
+    apiKey: {
+      mainnet: etherscanApiKey,
+      bsc: bscScanDevApiKey,
+    },
   },
 };
 
