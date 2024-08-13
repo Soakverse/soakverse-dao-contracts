@@ -35,13 +35,28 @@ contract SoakverseLedgerUpgradeable is
         _disableInitializers();
     }
 
-    function initialize(address _ccipRouter) external initializer {
+    function initialize(address _ccipRouter, bytes[] memory _alreadyStaked) external initializer {
         __UUPSUpgradeable_init();
         __AccessControlEnumerable_init();
         __CCIPReceiverUpgradeable_init(_ccipRouter);
 
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(UPGRADER_ROLE, msg.sender);
+
+        for(uint256 i = 0; i < _alreadyStaked.length; i++) {
+            // decode message content
+            (uint256 tokenId, uint8 tokenLevel, address tokenOwner, uint256 timestamp) = 
+                abi.decode(_alreadyStaked[i], (uint256, uint8, address, uint256));
+
+            // update storage
+            DaoPassStatus memory status = DaoPassStatus(tokenOwner, true, tokenLevel, timestamp);
+            tokenIdToDaoPassStatus[tokenId] = status;
+
+            uint256 ownerBalance = ownerToStakedBalance[tokenOwner];
+            ownerToStakedTokens[tokenOwner][ownerBalance] = tokenId;
+            stakedTokenToOwnerIndex[tokenId] = ownerBalance;
+            ownerToStakedBalance[tokenOwner] = ownerBalance + 1;
+        }
     }
 
     function version() external pure virtual returns (string memory) {

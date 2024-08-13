@@ -10,7 +10,7 @@ RUN apt update && apt install -y \
     curl wget
 
 # install nodejs, npm & yarn
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && apt-get install -y nodejs
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt-get install -y nodejs
 RUN npm install -g yarn
 
 # install solt (https://github.com/hjubb/solt)

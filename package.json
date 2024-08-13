@@ -9,14 +9,16 @@
   "author": "Soakmont",
   "license": "MIT",
   "devDependencies": {
+    "@nomicfoundation/hardhat-ethers": "^3.0.2",
     "@nomicfoundation/hardhat-verify": "^1.1.1",
     "@nomiclabs/hardhat-ethers": "npm:hardhat-deploy-ethers@^0.4.1",
-    "@openzeppelin/contracts-upgradeable": "^4.9.3",
     "@openzeppelin/contracts": "^4.9.3",
+    "@openzeppelin/contracts-upgradeable": "^4.9.3",
     "@openzeppelin/hardhat-upgrades": "^2.1.0",
     "chai": "^4.3.4",
     "ethers": "^6.7.0",
     "hardhat": "^2.17.1",
+    "hardhat-deploy": "^0.12.0",
     "ts-node": "^10.2.1",
     "typescript": "^4.4.3"
   },
