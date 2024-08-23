@@ -290,7 +290,7 @@ contract SoakverseDAO is
    */
   function estimateStakeFee() external view returns (uint256) {
     bytes memory dummyMessage = abi.encode(uint8(0), uint256(0), uint8(0), address(0), uint256(0)); // dummy stake message
-    return CCIPSenderUpgradeable.estimateMessageFee(uint64(11344663589394136015), dummyMessage);
+    return CCIPSenderUpgradeable.estimateMessageFee(uint64(15971525489660198786), dummyMessage);
   }
 
   function stake(uint256 tokenId) public payable nonReentrant {
@@ -303,14 +303,14 @@ contract SoakverseDAO is
     tokensLastStakedAt[tokenId] = block.timestamp;
     emit Stake(tokenId, msg.sender, tokensLastStakedAt[tokenId]);
 
-    // notify BSC ledger about stake - TBD bsc chain select, ledger address as receiver
+    // notify Base ledger about stake
     // message structure:
     // |- uint8     1 - staked | 0 - unstaked
     // |- uint256   tokenId
     // |- uint8     tokenLevel
     // |- address   token owner
     // |- uint256   block timestamp
-    CCIPSenderUpgradeable.sendCcipMessage(uint64(11344663589394136015), address(0xAD13Ea5f72D8a8898a572777d1cba971105cEC11), 
+    CCIPSenderUpgradeable.sendCcipMessage(uint64(15971525489660198786), address(0xAD13Ea5f72D8a8898a572777d1cba971105cEC11), // tbd update with new address on base
       abi.encode(uint8(1), tokenId, tokenLevel(tokenId), ownerOf(tokenId), block.timestamp));
   }
 
@@ -322,9 +322,9 @@ contract SoakverseDAO is
     require(tokensLastStakedAt[tokenId] > 0, "not staking");
     uint256 lsa = tokensLastStakedAt[tokenId];
     tokensLastStakedAt[tokenId] = 0;
-    emit Unstake(tokenId, msg.sender, block.timestamp, lsa);
+    emit Unstake(tokenId, msg.sender, lsa, block.timestamp);
 
-    CCIPSenderUpgradeable.sendCcipMessage(uint64(11344663589394136015), address(0xAD13Ea5f72D8a8898a572777d1cba971105cEC11), 
+    CCIPSenderUpgradeable.sendCcipMessage(uint64(15971525489660198786), address(0xAD13Ea5f72D8a8898a572777d1cba971105cEC11), // tbd update with new address on base
       abi.encode(uint8(0), tokenId, tokenLevel(tokenId), ownerOf(tokenId), block.timestamp));
   }
 
