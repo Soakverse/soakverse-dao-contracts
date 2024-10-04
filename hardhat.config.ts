@@ -1,8 +1,8 @@
 // hardhat.config.js
-import "@nomiclabs/hardhat-ethers";
-import "@openzeppelin/hardhat-upgrades";
-import "@nomicfoundation/hardhat-verify";
-import { HardhatUserConfig } from "hardhat/types";
+import '@nomiclabs/hardhat-ethers';
+import '@openzeppelin/hardhat-upgrades';
+import '@nomicfoundation/hardhat-verify';
+import { HardhatUserConfig } from 'hardhat/types';
 
 const {
   mainnetAccount,
@@ -11,14 +11,15 @@ const {
   infuraProjectId,
   etherscanApiKey,
   bscScanDevApiKey,
-} = require("./.secrets.json");
+  basescanApiKey,
+} = require('./.secrets.json');
 
 const config: HardhatUserConfig = {
-  defaultNetwork: "hardhat",
+  defaultNetwork: 'hardhat',
   solidity: {
     compilers: [
       {
-        version: "0.8.17",
+        version: '0.8.17',
         settings: {
           optimizer: { enabled: true, runs: 200 },
         },
@@ -27,22 +28,27 @@ const config: HardhatUserConfig = {
   },
   networks: {
     localhost: {
-      url: "http://localhost:8545",
+      url: 'http://localhost:8545',
       accounts: [localhostDeployAccount],
     },
     testnet: {
-      url: "https://bsc-testnet.publicnode.com",
+      url: 'https://bsc-testnet.publicnode.com',
       chainId: 97,
       accounts: [testnetAccount],
     },
     bscMainnet: {
-      url: "https://bsc-dataseed.binance.org/",
+      url: 'https://bsc-dataseed.binance.org/',
       chainId: 56,
       gasPrice: 20000000000,
       accounts: [mainnetAccount],
     },
     mainnet: {
-      url: "https://mainnet.infura.io/v3/" + infuraProjectId,
+      url: 'https://mainnet.infura.io/v3/' + infuraProjectId,
+      accounts: [mainnetAccount],
+    },
+    base: {
+      url: 'https://mainnet.base.org',
+      chainId: 8453,
       accounts: [mainnetAccount],
     },
   },
@@ -50,6 +56,7 @@ const config: HardhatUserConfig = {
     apiKey: {
       mainnet: etherscanApiKey,
       bsc: bscScanDevApiKey,
+      base: basescanApiKey,
     },
   },
 };

@@ -310,7 +310,7 @@ contract SoakverseDAO is
     // |- uint8     tokenLevel
     // |- address   token owner
     // |- uint256   block timestamp
-    CCIPSenderUpgradeable.sendCcipMessage(uint64(15971525489660198786), address(0xAD13Ea5f72D8a8898a572777d1cba971105cEC11), // tbd update with new address on base
+    CCIPSenderUpgradeable.sendCcipMessage(uint64(15971525489660198786), address(0x1e724A9769AfD222FfD7FF854fd781d1f4F8c91F), // tbd update with new address on base
       abi.encode(uint8(1), tokenId, tokenLevel(tokenId), ownerOf(tokenId), block.timestamp));
   }
 
@@ -324,7 +324,7 @@ contract SoakverseDAO is
     tokensLastStakedAt[tokenId] = 0;
     emit Unstake(tokenId, msg.sender, lsa, block.timestamp);
 
-    CCIPSenderUpgradeable.sendCcipMessage(uint64(15971525489660198786), address(0xAD13Ea5f72D8a8898a572777d1cba971105cEC11), // tbd update with new address on base
+    CCIPSenderUpgradeable.sendCcipMessage(uint64(15971525489660198786), address(0x1e724A9769AfD222FfD7FF854fd781d1f4F8c91F), // tbd update with new address on base
       abi.encode(uint8(0), tokenId, tokenLevel(tokenId), ownerOf(tokenId), block.timestamp));
   }
 
