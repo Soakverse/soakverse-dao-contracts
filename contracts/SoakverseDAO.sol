@@ -290,7 +290,11 @@ contract SoakverseDAO is
    */
   function estimateStakeFee() external view returns (uint256) {
     bytes memory dummyMessage = abi.encode(uint8(0), uint256(0), uint8(0), address(0), uint256(0)); // dummy stake message
-    return CCIPSenderUpgradeable.estimateMessageFee(uint64(15971525489660198786), dummyMessage);
+    return CCIPSenderUpgradeable.estimateMessageFee(
+      uint64(15971525489660198786),
+      address(0x1e724A9769AfD222FfD7FF854fd781d1f4F8c91F),
+      dummyMessage
+    );
   }
 
   function stake(uint256 tokenId) public payable nonReentrant {

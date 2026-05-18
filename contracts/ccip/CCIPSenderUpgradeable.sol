@@ -4,8 +4,8 @@ pragma solidity ^0.8.17;
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {Initializable} from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
-import {IRouterClient} from "@chainlink/contracts-ccip/src/v0.8/ccip/interfaces/IRouterClient.sol";
-import {Client} from "@chainlink/contracts-ccip/src/v0.8/ccip/libraries/Client.sol";
+import {IRouterClient} from "@chainlink/contracts-ccip/contracts/interfaces/IRouterClient.sol";
+import {Client} from "@chainlink/contracts-ccip/contracts/libraries/Client.sol";
 
 abstract contract CCIPSenderUpgradeable is Initializable {
 
@@ -41,17 +41,19 @@ abstract contract CCIPSenderUpgradeable is Initializable {
             receiver: abi.encode(receiver),
             data: message,
             tokenAmounts: new Client.EVMTokenAmount[](0), // empty array indicating no tokens are being sent
-            extraArgs: Client._argsToBytes( 
-                // Additional arguments, setting gas limit and non-strict sequencing mode
-                Client.EVMExtraArgsV1({gasLimit: ccipMessageGasLimit, strict: false})
+            extraArgs: Client._argsToBytes(
+                Client.GenericExtraArgsV2({
+                    gasLimit: ccipMessageGasLimit,
+                    allowOutOfOrderExecution: true
+                })
             ),
             feeToken: address(ccipFeeToken)
         });
         return ccipMessage;
     }
 
-    function estimateMessageFee(uint64 chainSelector, bytes memory message) internal view returns (uint256) {
-        Client.EVM2AnyMessage memory ccipMessage = createCcipMessage(address(0), message);
+    function estimateMessageFee(uint64 chainSelector, address receiver, bytes memory message) internal view returns (uint256) {
+        Client.EVM2AnyMessage memory ccipMessage = createCcipMessage(receiver, message);
         return ccipRouter.getFee(chainSelector, ccipMessage);
     }
 

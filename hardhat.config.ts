@@ -8,10 +8,8 @@ const {
   mainnetAccount,
   testnetAccount,
   localhostDeployAccount,
-  infuraProjectId,
+  alchemyApiKey,
   etherscanApiKey,
-  bscScanDevApiKey,
-  basescanApiKey,
 } = require('./.secrets.json');
 
 const config: HardhatUserConfig = {
@@ -29,7 +27,14 @@ const config: HardhatUserConfig = {
   networks: {
     localhost: {
       url: 'http://localhost:8545',
+      chainId: 1,
       accounts: [localhostDeployAccount],
+    },
+    hardhat: {
+      chainId: 1,
+      forking: process.env.FORK_URL
+        ? { url: process.env.FORK_URL }
+        : undefined,
     },
     testnet: {
       url: 'https://bsc-testnet.publicnode.com',
@@ -43,21 +48,19 @@ const config: HardhatUserConfig = {
       accounts: [mainnetAccount],
     },
     mainnet: {
-      url: 'https://mainnet.infura.io/v3/' + infuraProjectId,
+      url: process.env.MAINNET_RPC_URL || 'https://eth-mainnet.g.alchemy.com/v2/' + alchemyApiKey,
       accounts: [mainnetAccount],
     },
     base: {
-      url: 'https://mainnet.base.org',
+      url: process.env.BASE_RPC_URL || 'https://base-mainnet.g.alchemy.com/v2/' + alchemyApiKey,
       chainId: 8453,
       accounts: [mainnetAccount],
     },
   },
   etherscan: {
-    apiKey: {
-      mainnet: etherscanApiKey,
-      bsc: bscScanDevApiKey,
-      base: basescanApiKey,
-    },
+    // Single Etherscan V2 API key works across mainnet, base, bsc, etc.
+    // Get one at https://etherscan.io/myapikey
+    apiKey: etherscanApiKey,
   },
 };
 

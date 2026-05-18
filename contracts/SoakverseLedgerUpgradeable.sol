@@ -4,7 +4,7 @@ pragma solidity ^0.8.17;
 import {UUPSUpgradeable} from "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 import {AccessControlEnumerableUpgradeable} from "@openzeppelin/contracts-upgradeable/access/AccessControlEnumerableUpgradeable.sol";
 
-import {Client} from "@chainlink/contracts-ccip/src/v0.8/ccip/libraries/Client.sol";
+import {Client} from "@chainlink/contracts-ccip/contracts/libraries/Client.sol";
 
 import {ISoakverseLedger} from "./ISoakverseLedger.sol";
 import {CCIPReceiverUpgradeable} from "./ccip/CCIPReceiverUpgradeable.sol";
